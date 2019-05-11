@@ -124,5 +124,16 @@ public class UserServiceImpl implements UserDetailsService, UserService
 
         return currentUser.getToDos();
     }
+
+    @Transactional
+    @Override
+    public User addToDo(long userid, ToDo toDo)
+    {
+        User currentUser = userrepos.findById(userid).get();
+        ToDo newToDo = new ToDo(toDo.getTododescription(), toDo.getDatestarted(), currentUser);
+
+        currentUser.getToDos().add(newToDo);
+        return userrepos.save(currentUser);
+    }
 }
 

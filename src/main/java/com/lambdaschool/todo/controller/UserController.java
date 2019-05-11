@@ -43,11 +43,11 @@ public class UserController
     }
 
     @PostMapping("/todo/{userid}")
-    public ResponseEntity<?> addNewUser(@RequestBody ToDo newToDo, @PathVariable long userid)
+    public ResponseEntity<?> addNewToDoToUser(@RequestBody ToDo newToDo, @PathVariable long userid)
     {
-        newToDo = null;
+        User updatedUser = userService.addToDo(userid, newToDo);
 
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
+        return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

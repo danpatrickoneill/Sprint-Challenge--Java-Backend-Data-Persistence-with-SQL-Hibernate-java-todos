@@ -19,4 +19,6 @@ public interface UserService
     User update(User user, long id);
 
     List<ToDo> findToDosByUser();
+
+    User addToDo(long userid, ToDo toDo);
 }
