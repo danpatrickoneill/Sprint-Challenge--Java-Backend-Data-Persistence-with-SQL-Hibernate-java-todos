@@ -1,5 +1,6 @@
 package com.lambdaschool.todo.service;
 
+import com.lambdaschool.todo.model.ToDo;
 import com.lambdaschool.todo.model.User;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface UserService
     User save(User user);
 
     User update(User user, long id);
+
+    List<ToDo> findToDosByUser();
 }

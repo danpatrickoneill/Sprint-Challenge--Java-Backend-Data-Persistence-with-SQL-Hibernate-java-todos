@@ -1,5 +1,6 @@
 package com.lambdaschool.todo.service;
 
+import com.lambdaschool.todo.model.ToDo;
 import com.lambdaschool.todo.model.User;
 import com.lambdaschool.todo.model.UserRoles;
 import com.lambdaschool.todo.repository.RoleRepository;
@@ -66,6 +67,7 @@ public class UserServiceImpl implements UserDetailsService, UserService
     {
         User newUser = new User();
         newUser.setUsername(user.getUsername());
+        newUser.setPassword(user.getPassword());
 
         ArrayList<UserRoles> newRoles = new ArrayList<>();
         for (UserRoles ur : user.getUserRoles()) {
@@ -112,7 +114,15 @@ public class UserServiceImpl implements UserDetailsService, UserService
         } else {
             throw new EntityNotFoundException(authentication.getName());
         }
+    }
 
+    @Override
+    public List<ToDo> findToDosByUser()
+    {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userrepos.findByUsername(authentication.getName());
+
+        return currentUser.getToDos();
     }
 }
 

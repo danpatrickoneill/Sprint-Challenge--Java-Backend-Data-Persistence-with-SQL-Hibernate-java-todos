@@ -26,6 +26,11 @@ public class User extends Auditable
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL)
     @JsonIgnoreProperties("user")
+    private List<ToDo> toDos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
     private List<UserRoles> userRoles = new ArrayList<>();
 
     public User()
@@ -34,14 +39,15 @@ public class User extends Auditable
 
     public User(String username, String password, List<UserRoles> userRoles)
     {
-        this.username = username;
-        this.password = password;
+        setUsername(username);
+        setPassword(password);
 
         for (UserRoles ur : userRoles) {
             ur.setUser(this);
         }
         this.userRoles = userRoles;
     }
+
 
     public long getUserid()
     {
@@ -72,6 +78,16 @@ public class User extends Auditable
     {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.password = passwordEncoder.encode(password);
+    }
+
+    public List<ToDo> getToDos()
+    {
+        return toDos;
+    }
+
+    public void setToDos(List<ToDo> toDos)
+    {
+        this.toDos = toDos;
     }
 
     public List<UserRoles> getUserRoles()

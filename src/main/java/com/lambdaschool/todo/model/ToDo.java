@@ -15,20 +15,26 @@ public class ToDo extends Auditable
     @Column(nullable = false)
     private String tododescription;
 
+    private String datestarted;
+    private boolean completed;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
-    @JsonIgnoreProperties({"todos", "hibernateLazyInitializer"})
+    @JsonIgnoreProperties({"toDos", "hibernateLazyInitializer"})
     private User user;
 
     public ToDo()
     {
     }
 
-    public ToDo(String tododescription, User user)
+    public ToDo(String tododescription, String datestarted, User user)
     {
         this.tododescription = tododescription;
+        this.datestarted = datestarted;
         this.user = user;
+        this.completed = false;
     }
+
 
     public long getTodoid()
     {
@@ -48,6 +54,26 @@ public class ToDo extends Auditable
     public void setTododescription(String tododescription)
     {
         this.tododescription = tododescription;
+    }
+
+    public String getDatestarted()
+    {
+        return datestarted;
+    }
+
+    public void setDatestarted(String datestarted)
+    {
+        this.datestarted = datestarted;
+    }
+
+    public boolean isCompleted()
+    {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed)
+    {
+        this.completed = completed;
     }
 
     public User getUser()
